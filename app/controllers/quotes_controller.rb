@@ -1,5 +1,5 @@
 class QuotesController < ApplicationController
-  before_action :authorize_request, except: :index
+  before_action :authenticate_request
 
   def index
     @quotes = Quote.order('author ASC')

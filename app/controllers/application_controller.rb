@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::API
-  def authorize_request
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
-    begin
-      @decoded = JsonWebToken.decode(header)
-      @current_user = User.find(@decoded[:user_id])
-    rescue Mongoid::Errors::DocumentNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
-    rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
+  include ActionController::MimeResponds
+
+  def authenticate_request
+    token = request.headers['Authorization'] ? request.headers['Authorization'].split(' ').last : nil
+    @current_user = AuthToken.verify(token)
+
+    unless @current_user
+      render json: { error: 'Not Authorized' }, status: 401
+    else
+      render json: { error: 'Authorized'}, status: 'ok'
     end
   end
 end
