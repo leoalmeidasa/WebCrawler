@@ -19,7 +19,7 @@
 
 ## Documentação da API
 
-● link: 
+● link: https://www.postman.com/devtechbrazil/workspace/devtech-brazil/collection/14377778-adfbc8b4-1bbe-4b82-bc51-1d631bee041d
 
 ## Setup
 
