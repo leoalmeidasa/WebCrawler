@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
-  before_action :authenticate_request
+  before_action :auth_user
 
   def index
     unless Quote.tags_exists?(params[:search_tag]).any?

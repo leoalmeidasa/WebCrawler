@@ -1,14 +1,17 @@
 class ApplicationController < ActionController::API
-  include ActionController::MimeResponds
+  before_action :auth_user
 
-  def authenticate_request
-    token = request.headers['Authorization'] ? request.headers['Authorization'].split(' ').last : nil
-    @current_user = AuthToken.verify(token)
+  private
 
-    unless @current_user
-      render json: { error: 'Not Authorized' }, status: 401
-    else
-      render json: { error: 'Authorized'}, status: 'ok'
-    end
+  def token_request
+    return nil if request.headers['Authorization'].nil?
+
+    request.headers['Authorization'].split(' ')[1]
+  end
+
+  def auth_user
+    user_id = AuthTokenService.decode(token_request)
+    @current_user = User.find(user_id['user_id'])
+    @current_user
   end
 end
