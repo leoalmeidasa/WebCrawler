@@ -1,23 +1,30 @@
-# README
+# Teste para vaga Backend - Inovamind
 
-This README would normally document whatever steps are necessary to get the application up and running.
 
-Things you may want to cover:
+## Requisitos
 
-* Ruby version
+● Disponivel no Link: https://github.com/leoalmeidasa/WebCrawler/projects/1
 
-* System dependencies
+## Dependências
 
-* Configuration
+- Ruby 3.0.3
+- Rails 6.1.4
+- MongoDB
 
-* Database creation
+## API no Heroku
 
-* Database initialization
+● link: https://webcrawler2022.herokuapp.com/
 
-* How to run the test suite
+● Observação pelo fato do mongodb só funcionar de forma paga, api não está funcionando em produção
 
-* Services (job queues, cache servers, search engines, etc.)
+## Documentação da API
 
-* Deployment instructions
+● link: 
 
-* ...
+## Setup
+
+1. `git clone https://github.com/leoalmeidasa/WebCrawler.git`
+2. `cd WebCrawler`
+3. `Bundle install`
+4. `rails s`
+5. Abrir o link localhost:3000
