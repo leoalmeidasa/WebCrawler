@@ -1,14 +1,17 @@
 class ApplicationController < ActionController::API
-  def authorize_request
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
-    begin
-      @decoded = JsonWebToken.decode(header)
-      @current_user = User.find(@decoded[:user_id])
-    rescue Mongoid::Errors::DocumentNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
-    rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
-    end
+  before_action :auth_user
+
+  private
+
+  def token_request
+    return nil if request.headers['Authorization'].nil?
+
+    request.headers['Authorization'].split(' ')[1]
+  end
+
+  def auth_user
+    user_id = AuthTokenService.decode(token_request)
+    @current_user = User.find(user_id['user_id'])
+    @current_user
   end
 end
